@@ -9,6 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify, truncatewords_html
 from django.utils.html import strip_tags
 
+from datetime import datetime
+
 import settings as app_settings
 import random
 from PIL import Image
@@ -195,7 +197,7 @@ class DescriptionAbstract(ContentAbstract):
     gen_description = models.BooleanField(_("Generate description"),
                                           help_text=_(
                                           "If checked, the description will be"
-                                          " automatically generated from "
+
                                           "content. Uncheck if you want to "
                                           "manually set a custom "
                                           "description."), default=True)
@@ -212,5 +214,57 @@ class DescriptionAbstract(ContentAbstract):
         if self.content:
             stripped = strip_tags(self.content)
             return truncatewords_html(stripped, 100)
+
         # Falls back to the title.
         return str(self.title)
+
+
+class TimeStampAbstract(models.Model):
+    """
+    Abstract model that implements timestamp upon creation and update.
+    """
+    date_created = models.DateTimeField(null=True,
+                                        editable=False,
+                                        auto_now_add=True)
+    last_update = models.DateTimeField(null=True,
+                                       editable=False,
+                                       auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class PageAbstract(DescriptionAbstract, TimeStampAbstract, ThumbnailAbstract,
+                   AuthorAbstract, SiteAbstract):
+    """
+    Join previously defined abstract models to obtain a displayable element
+    for the CSM.
+    It should be used as base for website content (blog post, pages, etc...)
+    """
+    STATUS_DRAFT = 0
+    STATUS_PUBLISHED = 1
+    STATUS_CHOICES = (
+        (STATUS_DRAFT, _("Draft")),
+        (STATUS_PUBLISHED, _("Published")))
+
+    status = models.IntegerField(_("Status"),
+                                 choices=STATUS_CHOICES,
+                                 default=STATUS_PUBLISHED,
+                                 help_text=_("With Draft chosen, will only be "
+                                             "shown for admin users on the "
+                                             "site."))
+    publish_on = models.DateTimeField(_("Published from"),
+                                      help_text=_("With Published chosen, won'"
+                                      "t be shown until this time"),
+                                      blank=True, null=True, auto_now_add=True)
+    expires_on = models.DateTimeField(_("Expires on"),
+                                      help_text=_("With Published chosen, won'"
+                                      "t be shown after this time"),
+                                      blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+    def is_published(self):
+        return self.status == self.STATUS_PUBLISHED and self.publish_on <= \
+            datetime.now(tz=self.publish_on.tzinfo)
