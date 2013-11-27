@@ -6,7 +6,8 @@ from django.db.models.signals import post_save
 from django.contrib.sites.managers import CurrentSiteManager
 
 from django.utils.translation import ugettext_lazy as _
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify, truncatewords_html
+from django.utils.html import strip_tags
 
 import settings as app_settings
 import random
@@ -37,7 +38,7 @@ class SiteAbstract(models.Model):
 
 class SlugAbstract(models.Model):
     """
-    Abstact model that implements slug and title.
+    Abstract model that implements slug and title.
     """
     title = models.CharField(_("Title"), max_length=500)
     slug = models.CharField(_("URL"), max_length=2000, blank=True, null=True,
@@ -170,3 +171,46 @@ def crop_image(sender, instance, created, **kwargs):
 # We don't specify the user model (because it's an abstract model). So we check
 # the name of it in the signal.
 post_save.connect(crop_image, dispatch_uid="image_auto_resize")
+
+
+class ContentAbstract(SlugAbstract):
+    """
+    Abstract model that implements content (usually rendered with rich text
+    input).
+    """
+    content = models.TextField(_("Content"))
+
+    search_fields = ("content",)
+
+    class Meta:
+        abstract = True
+
+
+class DescriptionAbstract(ContentAbstract):
+    """
+    Abstract model that implements description, both manually inserted or
+    automaticaly created from content.
+    """
+    description = models.TextField(_("Description"), blank=True)
+    gen_description = models.BooleanField(_("Generate description"),
+                                          help_text=_(
+                                          "If checked, the description will be"
+                                          " automatically generated from "
+                                          "content. Uncheck if you want to "
+                                          "manually set a custom "
+                                          "description."), default=True)
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.description and self.gen_description:
+            self.description = self.__description_from_content()
+        super(DescriptionAbstract, self).save(*args, **kwargs)
+
+    def __description_from_content(self):
+        if self.content:
+            stripped = strip_tags(self.content)
+            return truncatewords_html(stripped, 100)
+        # Falls back to the title.
+        return str(self.title)
