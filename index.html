@@ -1,83 +1,148 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Vast+Shadow' rel='stylesheet' type='text/css'>
 
-    <title>Django-lattice by RossiAndrea</title>
+    <title>Django-lattice | Welcome</title>
+    <link rel="stylesheet" href="/static/css/foundation.css" />
+    <link rel="stylesheet" href="/static/css/lattice.css" />
+    <script src="/static/js/modernizr.js"></script>
   </head>
-
   <body>
     <header>
-      <div class="inner">
-        <h1>Django-lattice</h1>
-        <h2>A reusable application for generating a basic scaffold for a django based CMS</h2>
-        <a href="https://github.com/RossiAndrea/django-lattice" class="button"><small>View project on</small>GitHub</a>
-      </div>
+        <div class="small-8 large-centered columns">
+            <h1>Django-lattice</h1>
+            <h2>A reusable application for generating a basic scaffold for a CMS</h2>
+
+            <a href="https://github.com/RossiAndrea/django-lattice" class="button radius" target="_blank">
+                <img src="/static/img/github-logo.png">
+                <small>View project on</small> GitHub
+            </a>
+        </div>
     </header>
+    <a href="https://github.com/RossiAndrea/django-lattice/fork" target="_blank" id="fork">
+        Fork me on <strong>GitHub</strong>
+    </a>
+    <div class="row">
+        <div class="small-9 columns">
+            <div data-alert class="alert-box warning radius" style="margin-top: 20px">
+                <h5 style="font-weight: bold; color: #FFF">Django-lattice is currently in development.</h5>
+                The tarball and the zipball are just empty archives. If you wish to give it a try, please
+                download the code trough <strong>GitHub</strong> (checkout on the development branch).
+                <a href="#" class="close">&times;</a>
+            </div>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-<a name="welcome-to-django-lattice-pages" class="anchor" href="#welcome-to-django-lattice-pages"><span class="octicon octicon-link"></span></a>Welcome to Django Lattice pages!</h3>
+            <section>
+                <h3>Overview</h3>
+                <p><strong>Django-lattice</strong> is a reusable <a href="http://djangoproject.com/" target="_blank">Django</a>
+                application for generating a basic scaffold for a CMS.<br>
+                It includes a full set of abstract models, useful for an effort-less creation of site content models, like 
+                <span class="code">ThumbnailAbstract</span> that implements a simple thumbnail for the model, with a premade
+                function bindend to the post-save event which crop and resize the uploaded image to the given size.
+                </p>
+                <p>This application includes also several useful management commands that speeds up the development process,
+                and gives to you a basic scaffold to create tasty layouts. For example, if you'd like to use Foundation you
+                only have to type <span class="code">python manage.py getfoundation</span> to download and sync the entire
+                front-end framework into your Django project!</p>
+            </section>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+            <section>
+                <h3>Dependencies</h3>
+                <p><strong>Django-lattice</strong> makes use of as few library as possible. The requirements are the following:</p>
+                <ul>
+                    <li><a href="http://python.org" target="_blank">Python</a> 2.6+</li>
+                    <li><a href="http://djangoproject.com" target="_blank">Django</a> 1.5+ (untested on older versions)</li>
+                    <li><a href="https://github.com/python-imaging/Pillow" target="_blank">Pillow</a></li>
+                    <li><a href="http://www.python-requests.org" target="_blank">Python Requests</a></li>
+                </ul>
+            </section>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+            <section>
+                <h3>Browser support</h3>
+                <p><strong>Django-lattice</strong> has no particular client-side requirements. By default every browser (even the older ones) should work just fine.</p>
+                <p><span class="highlight">Beware:</span> if you intend to use "Foundation" (or maybe Bootstrap in a near future...) consider the framework support
+                (usually these frameworks work with most of modern browser, just older versions of IE should be problematic)</p>
+            </section>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+            <section>
+                <h3>Installation</h3>
+                <p>The easiest method is to install directly from pypi using pip by running the command below, which will
+                also install all the required dependencies:</p>
+                <div class="shell" style="margin-bottom: 20px;">pip install git+https://github.com/RossiAndrea/django-lattice.git</div>
+                <p>If you prefer, you can download <strong>Django-lattice</strong> and install it directly from source:</p>
+                <ul class="shell">
+                    <li>git clone https://github.com/RossiAndrea/django-lattice.git</li>
+                    <li>python setup.py install</li>
+                </ul>
+                <p>Or simply copy the <span class="code">lattice</span> directory to your django project root.<br>
+                Once done add <span class="code">lattice</span> to the INSTALLED_APP set in settings.py. For example:</p>
+                <ol class="code">
+                    <li>INSTALLED_APPS = (</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.admin',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.auth',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.contenttypes',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.sessions',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.messages',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.staticfiles',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;'django.contrib.sites',</li>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight">'lattice'</span></li>
+                    <li>)</li>
+                </ol>
+                <p><span class="highlight">Beware:</span> using the last two methods you'll need to install manually
+                all the dependencies. Using pip you can install everything just typing:
+                <span class="code">pip install -r requirements.txt</span>. The <span class="code">requirements.txt</span>
+                is located in the repository root.</p>
+            </section>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+            <section>
+                <h3>Usage</h3>
+                <p>...todo...</p>
+            </section>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+            <section>
+                <h3>License</h3>
+                <p>The MIT License (MIT)<br><br>
+                Copyright (c) 2013 Andrea Rossi<br><br>
+                Permission is hereby granted, free of charge, to any person obtaining a copy of
+                this software and associated documentation files (the "Software"), to deal in
+                the Software without restriction, including without limitation the rights to
+                use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+                the Software, and to permit persons to whom the Software is furnished to do so,
+                subject to the following conditions:<br><br>
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.<br><br>
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+                FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+                COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+                IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+                CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            </section>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/RossiAndrea/django-lattice/zipball/master" class="button">
+        </div>
+        <div class="small-3 columns side">
+          <a href="https://github.com/RossiAndrea/django-lattice/zipball/master" class="button radius">
+            <img src="/static/img/archive-icon.png">
             <small>Download</small>
             .zip file
           </a>
-          <a href="https://github.com/RossiAndrea/django-lattice/tarball/master" class="button">
+          <a href="https://github.com/RossiAndrea/django-lattice/tarball/master" class="button radius">
+            <img src="/static/img/archive-icon.png">
             <small>Download</small>
             .tar.gz file
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/RossiAndrea/django-lattice"></a> is maintained by <a href="https://github.com/RossiAndrea">RossiAndrea</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+          <p class="repo-owner"><a href="https://github.com/RossiAndrea/django-lattice"></a> is maintained by <a href="https://github.com/RossiAndrea">RossiAndrea</a>.</p> 
+        </div>
     </div>
-
-  
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
