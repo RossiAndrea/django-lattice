@@ -17,12 +17,19 @@
             <h1>Django-lattice</h1>
             <h2>A reusable application for generating a basic scaffold for a CMS</h2>
 
-            <a href="https://github.com/RossiAndrea/django-lattice" class="button radius" target="_blank">
-                <img src="static/img/github-logo.png">
-                <small>View project on</small> GitHub
-            </a>
         </div>
     </header>
+    <div data-magellan-expedition="fixed">
+        <dl class="sub-nav">
+            <dd data-magellan-arrival="overview"><a href="#overview">Overview</a></dd>
+            <dd data-magellan-arrival="dependencies"><a href="#dependencies">Dependencies</a></dd>
+            <dd data-magellan-arrival="browser"><a href="#browser">Browser support</a></dd>
+            <dd data-magellan-arrival="installation"><a href="#installation">Installation</a></dd>
+            <dd data-magellan-arrival="usage"><a href="#usage">Usage</a></dd>
+            <dd data-magellan-arrival="license"><a href="#license">License</a></dd>
+        </dl>
+    </div>
+
     <a href="https://github.com/RossiAndrea/django-lattice/fork" target="_blank" id="fork">
         Fork me on <strong>GitHub</strong>
     </a>
@@ -35,8 +42,9 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
+            <a name="overview"></a>
             <section>
-                <h3>Overview</h3>
+                <h3 data-magellan-destination="overview">Overview</h3>
                 <p><strong>Django-lattice</strong> is a reusable <a href="http://djangoproject.com/" target="_blank">Django</a>
                 application for generating a basic scaffold for a CMS.<br>
                 It includes a full set of abstract models, useful for an effort-less creation of site content models, like 
@@ -49,8 +57,9 @@
                 front-end framework into your Django project!</p>
             </section>
 
+            <a name="dependencies"></a>
             <section>
-                <h3>Dependencies</h3>
+                <h3 data-magellan-destination="dependencies">Dependencies</h3>
                 <p><strong>Django-lattice</strong> makes use of as few library as possible. The requirements are the following:</p>
                 <ul>
                     <li><a href="http://python.org" target="_blank">Python</a> 2.6+</li>
@@ -60,15 +69,17 @@
                 </ul>
             </section>
 
+            <a name="browser"></a>
             <section>
-                <h3>Browser support</h3>
+                <h3 data-magellan-destination="browser">Browser support</h3>
                 <p><strong>Django-lattice</strong> has no particular client-side requirements. By default every browser (even the older ones) should work just fine.</p>
                 <p><span class="highlight">Beware:</span> if you intend to use "Foundation" (or maybe Bootstrap in a near future...) consider the framework support
                 (usually these frameworks work with most of modern browser, just older versions of IE should be problematic)</p>
             </section>
 
+            <a name="installation"></a>
             <section>
-                <h3>Installation</h3>
+                <h3 data-magellan-destination="installation">Installation</h3>
                 <p>The easiest method is to install directly from pypi using pip by running the command below, which will
                 also install all the required dependencies:</p>
                 <div class="shell" style="margin-bottom: 20px;">pip install git+https://github.com/RossiAndrea/django-lattice.git</div>
@@ -97,11 +108,13 @@
                 is located in the repository root.</p>
             </section>
 
+            <a name="usage"></a>
             <section>
-                <h3>Usage</h3>
+                <h3 data-magellan-destination="usage">Usage</h3>
                 <p>...todo...</p>
             </section>
 
+            <a name="license"></a>
             <section>
                 <h3>License</h3>
                 <p>The MIT License (MIT)<br><br>
@@ -125,6 +138,11 @@
 
         </div>
         <div class="small-3 columns side">
+          <a href="https://github.com/RossiAndrea/django-lattice" class="button radius" target="_blank">
+              <img src="static/img/github-logo.png">
+              <small>View project on</small> GitHub
+          </a>
+
           <a href="https://github.com/RossiAndrea/django-lattice/zipball/master" class="button radius">
             <img src="static/img/archive-icon.png">
             <small>Download</small>

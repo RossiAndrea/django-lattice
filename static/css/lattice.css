@@ -54,6 +54,7 @@ HEADER H2{
   letter-spacing: 0;
 }
 
+/*
 HEADER .button{
     float:right;
     position: absolute;
@@ -64,6 +65,7 @@ HEADER .button{
 
     z-index: 1001;
 }
+*/
 
 .side{
     margin-top: 32px;
