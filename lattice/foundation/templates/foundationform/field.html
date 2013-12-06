@@ -1,0 +1,24 @@
+{% load foundation %}
+<div class="row">
+    <div class="large-12 columns{% if field.errors %} error{% endif %}">
+        {% if field|is_checkbox %}
+            {{ field }}
+            <label for="{{ field.id }}">{{ field.id }}</label>
+        {% else %}{% if field|is_radio %}
+            <label>{{ field.label }}</label>
+            {% for choice in field %}
+                {{ choice.tag }}
+                <label for="{{ choice.id }}">{{ choice.choice_label }}</label>
+            {% endfor %}
+        {% else %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+        {% endif %}{% endif %}
+
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <small class="error">{{ error }}</small>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
