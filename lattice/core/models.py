@@ -11,7 +11,7 @@ from django.utils.html import strip_tags
 
 from datetime import datetime
 
-import settings as app_settings
+from lattice import settings as app_settings
 import random
 from PIL import Image
 
