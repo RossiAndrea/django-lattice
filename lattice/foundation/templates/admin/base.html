@@ -1,0 +1,125 @@
+{% load admin_static %}
+{% load firstof from future %}
+{% load i18n %}
+{% load foundation_admin %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link rel="stylesheet" type="text/css" href="{% static "css/foundation.min.css" %}" />
+<style type="text/css">
+    HTML, BODY, #container, .off-canvas-wrap, .inner-wrap{
+        height: 100%;
+        min-height: 100%;
+    }
+</style>
+
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+
+</head>
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+
+<!-- Container -->
+<div id="container">
+
+    <!-- Header -->
+    <div class="off-canvas-wrap">
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    {% block branding %}{% endblock %}
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    {% block userlinks %}
+                    {% if user.is_active and user.is_staff %}
+                        <li><label>
+                            {% trans 'Welcome,' %}
+                            <strong>{% firstof user.get_short_name user.get_username %}</strong>
+                        </label></li>
+                        {% if user.has_usable_password %}
+                            <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+                    {% else %}
+                        <li><a href="{#% url 'admin:login' %#}">{% trans 'Log in' %}</a></li>
+                    {% endif %}
+                    {% endblock %}
+
+                    {% admin_app_list as alist %}
+                    {% if alist %}
+                        {% for app in alist %}
+                            <li><label>{{ app.app_label }}</label></li>
+                            {% for model in app.models %}
+                                {% if model.admin_url %}
+                                    <li><a>{{ model.name }}</a></li>
+
+                                    {% if model.add_url %}
+                                        <li><a href="{{ model.add_url }}" class="button tiny">{% trans 'Add' %}</a></li>
+                                    {% endif %}
+
+                                    {% if model.admin_url %}
+                                        <li><a href="{{ model.admin_url }}" class="button tiny">{% trans 'Change' %}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </aside>
+
+    <section class="main-section">
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+    </section>
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
+    {% block nav-global %}{% endblock %}
+    <!-- END Header -->
+    </div>
+
+
+
+    {% block footer %}<footer id="footer"></footer>{% endblock %}
+</div>
+<!-- END Container -->
+
+<script type="text/javascript" src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+<script type="text/javascript" src="{% static "js/vendor/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "js/foundation.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/foundation/foundation.offcanvas.js" %}"></script>
+<script type="text/javascript">
+    $(document).foundation();
+</script>
+</body>
+</html>
