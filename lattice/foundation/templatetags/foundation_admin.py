@@ -3,6 +3,7 @@ from django import template
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.core.urlresolvers import reverse, NoReverseMatch
 
 site = admin.site
 register = template.Library()
@@ -20,6 +21,7 @@ def admin_app_list(context):
             perms = model_admin.get_model_perms(request)
 
             if True in perms.values():
+                info = (app_label, model._meta.model_name)
                 model_dict = {
                     'name': capfirst(model._meta.verbose_name_plural),
                     'admin_url': mark_safe('/admin/%s/%s/' %
@@ -27,6 +29,19 @@ def admin_app_list(context):
                                             model.__name__.lower())),
                     'perms': perms,
                 }
+                if perms.get('change', False):
+                    try:
+                        model_dict['admin_url'] = \
+                            reverse('admin:%s_%s_changelist' % info)
+                    except NoReverseMatch:
+                        pass
+                    if perms.get('add', False):
+                        try:
+                            model_dict['add_url'] = \
+                                reverse('admin:%s_%s_add' % info)
+                        except NoReverseMatch:
+                            pass
+
                 if app_label in app_dict:
                     app_dict[app_label]['models'].append(model_dict)
                 else:
@@ -39,5 +54,6 @@ def admin_app_list(context):
 
     app_list = app_dict.values()
     app_list.sort(lambda x, y: cmp(x['name'], y['name']))
+    print app_list
     return app_list
 register.assignment_tag(takes_context=True)(admin_app_list)
