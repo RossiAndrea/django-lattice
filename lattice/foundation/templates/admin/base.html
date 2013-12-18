@@ -9,12 +9,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <link rel="stylesheet" type="text/css" href="{% static "css/foundation.min.css" %}" />
+
 <style type="text/css">
-    HTML, BODY, #container, .off-canvas-wrap, .inner-wrap{
+    HTML{
         height: 100%;
+    }
+    BODY{
         min-height: 100%;
     }
 </style>
+{% block extrastyle %}{% endblock %}
 
 <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
 
@@ -106,11 +110,11 @@
     </div>
     {% block nav-global %}{% endblock %}
     <!-- END Header -->
-    </div>
 
 
 
     {% block footer %}<footer id="footer"></footer>{% endblock %}
+    </div>
 </div>
 <!-- END Container -->
 
@@ -119,7 +123,15 @@
 <script type="text/javascript" src="{% static "js/foundation.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/foundation/foundation.offcanvas.js" %}"></script>
 <script type="text/javascript">
+    function fixOffCanvasHeight(){
+        /* Fixes the offCanvas height to page height, preventing the '.main-section' scrolling issue */
+        var hgt = $("BODY").height();
+        $(".inner-wrap").height(hgt);
+    }
     $(document).foundation();
+    fixOffCanvasHeight();
+    // Bind the function 'fixOffCanvasHeight' to window resize.
+    $(window).resize(fixOffCanvasHeight);
 </script>
 </body>
 </html>
