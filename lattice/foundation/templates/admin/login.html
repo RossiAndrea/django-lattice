@@ -41,6 +41,8 @@
         </div>
         <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
             {{ form|foundation }}
+            <input type="hidden" name="this_is_the_login_form" value="1" />
+            <input type="hidden" name="next" value="{{ next }}" />
             {% url 'admin_password_reset' as password_reset_url %}
             {% if password_reset_url %}
                 <div class="password-reset-link">
