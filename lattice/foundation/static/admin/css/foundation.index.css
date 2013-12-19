@@ -1,0 +1,33 @@
+#apptab dd > a{
+    border: 1px solid rgb(221, 221, 221);
+    border-right: 0;
+
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+    margin-bottom: 4px;
+}
+.tabs-content.vertical{ width: 80%; }
+.tabs-content.vertical .content, .app-overview{
+    width: 100%;
+}
+.app-overview TBODY TR:first-child TD{
+    width: 100%;
+}
+.app-overview TBODY TR TD .button.tiny{
+    margin-bottom: 0;
+}
+
+.addlink {
+    background: url(../img/icon_addlink.gif) 15px 25px no-repeat;
+}
+.changelink {
+    background: url(../img/icon_changelink.gif) 15px 25px no-repeat;
+}
+.deletelink {
+    background: url(../img/icon_deletelink.gif) 15px 25px no-repeat;
+}
